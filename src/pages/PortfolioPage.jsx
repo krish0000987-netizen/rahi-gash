@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { PORTFOLIO_ITEMS, BUSINESS_INFO } from '../data/siteData';
 import { Sparkles, Filter, Eye, Phone } from 'lucide-react';
 
-export default function PortfolioPage({ onSelectPortfolioItem, onOpenQuoteModal }) {
+export default function PortfolioPage({ onSelectPortfolioItem, onOpenQuoteModal, theme }) {
   const [selectedCategory, setSelectedCategory] = useState('All');
 
   const categories = ['All', 'LED Boards', '3D Letters', 'Flex Printing', 'Visiting Cards', 'Wedding Cards'];
@@ -16,14 +16,14 @@ export default function PortfolioPage({ onSelectPortfolioItem, onOpenQuoteModal 
       
       {/* Hero */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-950/60 border border-red-800/60">
-          <Sparkles className="w-3.5 h-3.5 text-red-500" />
-          <span className="text-xs font-bold text-red-400 uppercase tracking-widest">SHOWCASE GALLERY</span>
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-100 dark:bg-red-950/60 border border-red-200 dark:border-red-800/60">
+          <Sparkles className="w-3.5 h-3.5 text-red-600" />
+          <span className="text-xs font-bold text-red-600 dark:text-red-400 uppercase tracking-widest">SHOWCASE GALLERY</span>
         </div>
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white">
-          Our Work Speaks <span className="text-red-500">Before We Do.</span>
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white">
+          Our Work Speaks <span className="text-red-600">Before We Do.</span>
         </h1>
-        <p className="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto">
+        <p className="text-slate-700 dark:text-gray-300 text-sm sm:text-base max-w-2xl mx-auto">
           Explore our completed 3D LED signboards, flex banners, shopfront elevations, executive visiting cards, and royal wedding invitations.
         </p>
 
@@ -35,8 +35,10 @@ export default function PortfolioPage({ onSelectPortfolioItem, onOpenQuoteModal 
               onClick={() => setSelectedCategory(cat)}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                 selectedCategory === cat
-                  ? 'bg-red-600 text-white shadow-lg shadow-red-950/80 scale-105'
-                  : 'bg-neutral-900 text-gray-400 hover:text-white border border-neutral-800'
+                  ? 'bg-red-600 text-white shadow-lg shadow-red-600/30 scale-105'
+                  : theme === 'dark'
+                    ? 'bg-neutral-900 text-gray-400 hover:text-white border border-neutral-800'
+                    : 'bg-slate-100 text-slate-700 hover:text-slate-900 border border-slate-200'
               }`}
             >
               {cat}
@@ -52,7 +54,7 @@ export default function PortfolioPage({ onSelectPortfolioItem, onOpenQuoteModal 
             <div
               key={item.id}
               onClick={() => onSelectPortfolioItem(item)}
-              className="group cursor-pointer relative rounded-3xl overflow-hidden bg-neutral-950 border border-neutral-800/80 hover:border-red-600/50 transition-all duration-300 shadow-xl h-80 flex flex-col justify-end"
+              className="group cursor-pointer relative rounded-3xl overflow-hidden bg-slate-900 border border-slate-200 dark:border-neutral-800/80 hover:border-red-600/50 transition-all duration-300 shadow-xl h-80 flex flex-col justify-end"
             >
               <img
                 src={item.image}
@@ -61,7 +63,7 @@ export default function PortfolioPage({ onSelectPortfolioItem, onOpenQuoteModal 
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
 
-              <div className="relative p-6 space-y-2 z-10">
+              <div className="relative p-6 space-y-2 z-10 text-white">
                 <div className="flex items-center justify-between">
                   <span className="px-3 py-1 rounded-full bg-red-600 text-[10px] font-bold text-white uppercase tracking-wider">
                     {item.category}
@@ -83,10 +85,10 @@ export default function PortfolioPage({ onSelectPortfolioItem, onOpenQuoteModal 
 
       {/* CTA */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="p-8 rounded-3xl bg-neutral-950 border border-neutral-800 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+        <div className="p-8 rounded-3xl bg-slate-900 dark:bg-neutral-950 border border-slate-800 dark:border-neutral-800 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left text-white">
           <div>
             <h3 className="text-2xl font-bold text-white">Have a specific design in mind?</h3>
-            <p className="text-xs text-gray-400 mt-1">Send us your image reference over WhatsApp or request a custom quote.</p>
+            <p className="text-xs text-slate-300 dark:text-gray-400 mt-1">Send us your image reference over WhatsApp or request a custom quote.</p>
           </div>
           <button
             onClick={onOpenQuoteModal}

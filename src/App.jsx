@@ -39,8 +39,10 @@ export default function App() {
   useEffect(() => {
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
+      document.body.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
+      document.body.classList.remove('dark');
     }
   }, [theme]);
 
@@ -52,10 +54,10 @@ export default function App() {
     <Router>
       <ScrollToTop />
       <div className={`min-h-screen flex flex-col transition-colors duration-300 selection:bg-red-600 selection:text-white ${
-        theme === 'dark' ? 'bg-[#060606] text-gray-100 dark' : 'bg-slate-50 text-slate-900'
+        theme === 'dark' ? 'bg-[#060606] text-gray-100 dark' : 'bg-white text-slate-900 light'
       }`}>
         
-        {/* Sticky Luxury Header */}
+        {/* Sticky Header */}
         <Header
           onOpenQuoteModal={() => setIsQuoteOpen(true)}
           theme={theme}
@@ -71,16 +73,17 @@ export default function App() {
                 <HomePage
                   onOpenQuoteModal={() => setIsQuoteOpen(true)}
                   onSelectPortfolioItem={(item) => setSelectedLightboxItem(item)}
+                  theme={theme}
                 />
               }
             />
             <Route
               path="/about"
-              element={<AboutPage onOpenQuoteModal={() => setIsQuoteOpen(true)} />}
+              element={<AboutPage onOpenQuoteModal={() => setIsQuoteOpen(true)} theme={theme} />}
             />
             <Route
               path="/services"
-              element={<ServicesPage onOpenQuoteModal={() => setIsQuoteOpen(true)} />}
+              element={<ServicesPage onOpenQuoteModal={() => setIsQuoteOpen(true)} theme={theme} />}
             />
             <Route
               path="/led-boards"
@@ -88,6 +91,7 @@ export default function App() {
                 <LedBoardsPage
                   onOpenQuoteModal={() => setIsQuoteOpen(true)}
                   onSelectPortfolioItem={(item) => setSelectedLightboxItem(item)}
+                  theme={theme}
                 />
               }
             />
@@ -97,6 +101,7 @@ export default function App() {
                 <FlexPrintingPage
                   onOpenQuoteModal={() => setIsQuoteOpen(true)}
                   onSelectPortfolioItem={(item) => setSelectedLightboxItem(item)}
+                  theme={theme}
                 />
               }
             />
@@ -106,6 +111,7 @@ export default function App() {
                 <SignagePage
                   onOpenQuoteModal={() => setIsQuoteOpen(true)}
                   onSelectPortfolioItem={(item) => setSelectedLightboxItem(item)}
+                  theme={theme}
                 />
               }
             />
@@ -115,6 +121,7 @@ export default function App() {
                 <PrintingPage
                   onOpenQuoteModal={() => setIsQuoteOpen(true)}
                   onSelectPortfolioItem={(item) => setSelectedLightboxItem(item)}
+                  theme={theme}
                 />
               }
             />
@@ -124,18 +131,19 @@ export default function App() {
                 <PortfolioPage
                   onOpenQuoteModal={() => setIsQuoteOpen(true)}
                   onSelectPortfolioItem={(item) => setSelectedLightboxItem(item)}
+                  theme={theme}
                 />
               }
             />
             <Route
               path="/process"
-              element={<ProcessPage onOpenQuoteModal={() => setIsQuoteOpen(true)} />}
+              element={<ProcessPage onOpenQuoteModal={() => setIsQuoteOpen(true)} theme={theme} />}
             />
-            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/contact" element={<ContactPage theme={theme} />} />
           </Routes>
         </main>
 
-        {/* Mega Footer */}
+        {/* Footer */}
         <Footer onOpenQuoteModal={() => setIsQuoteOpen(true)} theme={theme} />
 
         {/* Global Quick Action Modal */}
