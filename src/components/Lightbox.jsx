@@ -2,12 +2,16 @@ import React from 'react';
 import { X, Phone } from 'lucide-react';
 import { BUSINESS_INFO } from '../data/siteData';
 
-export default function Lightbox({ item, onClose, onOpenQuoteModal }) {
+export default function Lightbox({ item, onClose, onOpenQuoteModal, theme }) {
   if (!item) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-xl animate-in fade-in duration-200">
-      <div className="relative w-full max-w-4xl bg-neutral-950 rounded-3xl border border-neutral-800 overflow-hidden shadow-2xl flex flex-col md:flex-row">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-xl animate-in fade-in duration-200">
+      <div className={`relative w-full max-w-4xl rounded-3xl border overflow-hidden shadow-2xl flex flex-col md:flex-row transition-colors ${
+        theme === 'dark'
+          ? 'bg-neutral-950 border-neutral-800 text-white'
+          : 'bg-white border-slate-200 text-slate-900'
+      }`}>
         
         {/* Close Button */}
         <button
@@ -30,32 +34,36 @@ export default function Lightbox({ item, onClose, onOpenQuoteModal }) {
         {/* Details Panel */}
         <div className="w-full md:w-2/5 p-6 sm:p-8 flex flex-col justify-between space-y-6">
           <div>
-            <span className="px-3 py-1 rounded-full bg-red-950/80 border border-red-800/80 text-[11px] font-bold text-red-400 uppercase tracking-widest">
+            <span className="px-3 py-1 rounded-full bg-red-100 dark:bg-red-950/80 border border-red-200 dark:border-red-800/80 text-[11px] font-bold text-red-600 dark:text-red-400 uppercase tracking-widest">
               {item.category}
             </span>
-            <h3 className="text-2xl font-extrabold text-white mt-3 leading-tight">{item.title}</h3>
-            <p className="text-xs font-semibold text-gray-400 mt-1">{item.subtitle}</p>
+            <h3 className="text-2xl font-extrabold mt-3 leading-tight">{item.title}</h3>
+            <p className="text-xs font-semibold text-slate-500 dark:text-gray-400 mt-1">{item.subtitle}</p>
             
-            <p className="text-xs text-gray-300 leading-relaxed mt-4">
+            <p className="text-xs text-slate-600 dark:text-gray-300 leading-relaxed mt-4">
               {item.description}
             </p>
           </div>
 
-          <div className="pt-4 border-t border-neutral-900 space-y-3">
+          <div className="pt-4 border-t border-slate-200 dark:border-neutral-900 space-y-3">
             <button
               onClick={() => {
                 onClose();
                 onOpenQuoteModal();
               }}
-              className="w-full py-3.5 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold shadow-lg shadow-red-950/80 transition-all text-center"
+              className="w-full py-3.5 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold shadow-lg shadow-red-600/30 transition-all text-center"
             >
               ENQUIRE ABOUT THIS DESIGN
             </button>
             <a
               href={`tel:${BUSINESS_INFO.phone}`}
-              className="w-full py-3 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-gray-300 text-xs font-semibold border border-neutral-800 transition-all flex items-center justify-center gap-2"
+              className={`w-full py-3 rounded-xl text-xs font-bold border transition-all flex items-center justify-center gap-2 ${
+                theme === 'dark'
+                  ? 'bg-neutral-900 hover:bg-neutral-800 text-gray-300 border-neutral-800'
+                  : 'bg-slate-100 hover:bg-slate-200 text-slate-800 border-slate-200'
+              }`}
             >
-              <Phone className="w-3.5 h-3.5 text-red-500" />
+              <Phone className="w-3.5 h-3.5 text-red-600" />
               <span>Call: {BUSINESS_INFO.phone}</span>
             </a>
           </div>

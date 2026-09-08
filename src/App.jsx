@@ -32,14 +32,35 @@ function ScrollToTop() {
 export default function App() {
   const [isQuoteOpen, setIsQuoteOpen] = useState(false);
   const [selectedLightboxItem, setSelectedLightboxItem] = useState(null);
+  
+  // Default theme is 'light' as requested by user
+  const [theme, setTheme] = useState('light');
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
+  };
 
   return (
     <Router>
       <ScrollToTop />
-      <div className="min-h-screen flex flex-col bg-[#060606] text-gray-100 selection:bg-red-600 selection:text-white">
+      <div className={`min-h-screen flex flex-col transition-colors duration-300 selection:bg-red-600 selection:text-white ${
+        theme === 'dark' ? 'bg-[#060606] text-gray-100 dark' : 'bg-slate-50 text-slate-900'
+      }`}>
         
         {/* Sticky Luxury Header */}
-        <Header onOpenQuoteModal={() => setIsQuoteOpen(true)} />
+        <Header
+          onOpenQuoteModal={() => setIsQuoteOpen(true)}
+          theme={theme}
+          toggleTheme={toggleTheme}
+        />
 
         {/* Dynamic Route Pages */}
         <main className="flex-1">
@@ -115,20 +136,25 @@ export default function App() {
         </main>
 
         {/* Mega Footer */}
-        <Footer onOpenQuoteModal={() => setIsQuoteOpen(true)} />
+        <Footer onOpenQuoteModal={() => setIsQuoteOpen(true)} theme={theme} />
 
         {/* Global Quick Action Modal */}
-        <QuoteModal isOpen={isQuoteOpen} onClose={() => setIsQuoteOpen(false)} />
+        <QuoteModal
+          isOpen={isQuoteOpen}
+          onClose={() => setIsQuoteOpen(false)}
+          theme={theme}
+        />
 
         {/* Portfolio Image Lightbox */}
         <Lightbox
           item={selectedLightboxItem}
           onClose={() => setSelectedLightboxItem(null)}
           onOpenQuoteModal={() => setIsQuoteOpen(true)}
+          theme={theme}
         />
 
         {/* Mobile Sticky Quick CTA */}
-        <MobileCTA onOpenQuoteModal={() => setIsQuoteOpen(true)} />
+        <MobileCTA onOpenQuoteModal={() => setIsQuoteOpen(true)} theme={theme} />
 
       </div>
     </Router>
